@@ -13,7 +13,7 @@ const filenamesOfTotals = glob.sync('./**/' + config.reportFilename, {
     cwd: globCwd,
 });
 
-const { recipient, decimals, balance } = argv;
+const { recipient, decimals, balance, week_num } = argv;
 
 const reports = filenamesOfTotals.map((fileName) => [
     parseInt(fileName.split('/')[1]), // weekNumber
@@ -26,7 +26,7 @@ console.log(config.reportFilename);
 const proofs: any[] = [];
 
 reports.forEach(([week, report]) => {
-    if (week === 95) {
+    if (week === week_num) {
         const merkleTree = loadTree(report, decimals || 18);
 
         const scaledBalance = scale(balance, decimals || 18);
